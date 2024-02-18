@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import InputField from "./components/input.tsx";
+import InputField from "./InputComponent/input.tsx";
 function App() {
   
 
