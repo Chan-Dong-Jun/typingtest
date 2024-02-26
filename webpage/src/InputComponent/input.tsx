@@ -13,11 +13,10 @@ const InputField = () => {
     const [index, setIndex] = useState(0);
     // console.log(index)
     // console.log(correctText)
-    // console.log(inputText)
+    console.log(inputText)
     const ref = useRef(null)
     
     // const renderTextWithStyle = () => {
-    //     console.log(inputText)
     //     return inputText.map((word, indexOuter) => {
     //         return word.map((char, indexInner) => {
     //             let charColour;
@@ -49,6 +48,9 @@ const InputField = () => {
             }) 
         })
     }
+    const renderCorrectText = () => {
+        return 
+    }
     
 
     const handleKeyDown = event => {
@@ -77,8 +79,10 @@ const InputField = () => {
                     }
                 })
                 setInputText(newInputText);
-            } else if (index > 0) {
+            } 
+            if (index > 0 && inputText[index].length == 0) {
                 setIndex(index => index - 1)
+                setInputText(inputText)
             }
         }
 
@@ -94,6 +98,9 @@ const InputField = () => {
                 setInputText(newInputText);
                 setIndex(index => index + 1);
             }
+            // if (inputText[index].length == correctText[index].length) {
+            //     setIndex(index => index + 1);
+            // }
         }
     };
 
