@@ -16,21 +16,21 @@ const InputField = () => {
     console.log(inputText)
     const ref = useRef(null)
     
-    // const renderTextWithStyle = () => {
-    //     return inputText.map((word, indexOuter) => {
-    //         return word.map((char, indexInner) => {
-    //             let charColour;
-    //             if (indexOuter >= correctText.length || indexInner >= correctText[indexOuter].length) {
-    //                 charColour = "red";
-    //             } else if (correctText[indexOuter][indexInner] == char) {
-    //                 charColour = "green";
-    //             } else {
-    //                 charColour = "red";
-    //             }
-    //             return <span key={index} style={{ color: charColour }}>{char}</span>;
-    //         }) 
-    //     })
-    // }
+ 
+    const renderRemainingText = () => {
+        return correctText.map((word, indexOuter) => {
+            if (indexOuter >= index) {
+                return word.map((char, indexInner) => {
+                    if (indexOuter === index && indexInner >= inputText[index].length || indexOuter > index) {
+                        return <span style={{ color: 'black' }}>{char}</span>;
+                    }
+                })
+            }
+        })
+    }
+
+    
+
     const renderTextWithStyle = () => {
         return inputText.map((word, indexOuter) => {
             return word.map((char, indexInner) => {
@@ -42,21 +42,25 @@ const InputField = () => {
                 } else {
                     charColour = "red";
                 }
-                // Generate a unique key for each span element
+                // Generate a unique key for each span element, not sure too
                 const key = `${indexOuter}-${indexInner}`;
-                return <span key={key} style={{ color: charColour }}>{char}</span>;
+                if (char === " ") {
+                    // nto sure why nbsp causes it to not collapse 
+                    return <span key={key} style={{ backgroundColor: charColour }}>&nbsp;</span>;
+                } else {
+                    return <span key={key} style={{ color: charColour }}>{char}</span>;
+                }   
+                
             }) 
         })
     }
-    const renderCorrectText = () => {
-        return 
-    }
+  
     
 
     const handleKeyDown = event => {
         console.log('User pressed: ', event.key);
         
-        if (/^[a-z0-9]+$/i.test(event.key) && event.key.length == 1) {
+        if (/^[a-z0-9.,]+$/i.test(event.key) && event.key.length == 1) {
             const newInputTextInnerArray = [...inputText[index], event.key]
             const newInputText = inputText.map((innerList, i)=> {
                 if (i == index) {
@@ -82,12 +86,23 @@ const InputField = () => {
             } 
             if (index > 0 && inputText[index].length == 0) {
                 setIndex(index => index - 1)
-                setInputText(inputText)
+                //setInputText(inputText)
+                const newInputTextInnerArray = inputText[index-1].slice(0, -1);
+                const newInputText = inputText.map((innerList, i)=> {
+                    if (i == index-1) {
+                        return newInputTextInnerArray;
+                    } else {
+                        return innerList;
+                    }
+                })
+                setInputText(newInputText);
             }
         }
 
         if (event.key == " ") {    
-            if (index < correctText.length - 1) {
+            console.log(inputText[index].lenght)
+            console.log(correctText[index].length)
+            if (index < correctText.length - 1 && inputText[index].length === correctText[index].length - 1) {
                 const newInputText = inputText.map((word,i) => {
                     if (index == i) {
                         return [...word, " "]
@@ -97,6 +112,15 @@ const InputField = () => {
                 })
                 setInputText(newInputText);
                 setIndex(index => index + 1);
+            } else {
+                const newInputText = inputText.map((word,i) => {
+                    if (index == i) {
+                        return [...word, " "]
+                    } else {
+                        return word;
+                    }
+                })
+                setInputText(newInputText);
             }
             // if (inputText[index].length == correctText[index].length) {
             //     setIndex(index => index + 1);
@@ -116,6 +140,7 @@ const InputField = () => {
             onKeyDown={handleKeyDown}
             tabIndex={-1}>
                 {renderTextWithStyle()}
+                {renderRemainingText()}
                 {/* {inputText.map((e) => {
                     return e.join("")
                 }
