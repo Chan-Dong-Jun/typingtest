@@ -1,8 +1,8 @@
 span {
     font: "Roboto Mono", "Roboto Mono", "Vazirmatn", monospace;
-    font-variant: no-common-ligatures;
-    font-size: 1em;
-    line-height: 1em;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: grey;
 }
 
 .wrongWords {

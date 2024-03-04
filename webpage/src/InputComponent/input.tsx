@@ -17,44 +17,67 @@ const InputField = () => {
     const ref = useRef(null)
     
  
-    const renderRemainingText = () => {
-        return correctText.map((word, indexOuter) => {
-            if (indexOuter >= index) {
-                return word.map((char, indexInner) => {
-                    if (indexOuter === index && indexInner >= inputText[index].length || indexOuter > index) {
-                        return <span style={{ color: 'black' }}>{char}</span>;
-                    }
-                })
-            }
-        })
-    }
+    // const renderRemainingText = () => {
+    //     return correctText.map((word, indexOuter) => {
+    //         if (indexOuter >= index) {
+    //             return word.map((char, indexInner) => {
+    //                 if (indexOuter === index && indexInner >= inputText[index].length || indexOuter > index) {
+    //                     return <span style={{ color: 'black' }}>{char}</span>;
+    //                 }
+    //             })
+    //         }
+    //     })
+    // }
 
     
 
-    const renderTextWithStyle = () => {
-        return inputText.map((word, indexOuter) => {
+    // const renderTextWithStyle = () => {
+    //     return inputText.map((word, indexOuter) => {
+    //         return word.map((char, indexInner) => {
+    //             let charColour;
+    //             if (indexOuter >= correctText.length || indexInner >= correctText[indexOuter].length) {
+    //                 charColour = "red";
+    //             } else if (correctText[indexOuter][indexInner] === char) {
+    //                 charColour = "green";
+    //             } else {
+    //                 charColour = "red";
+    //             }
+    //             // Generate a unique key for each span element, not sure too
+    //             const key = `${indexOuter}-${indexInner}`;
+    //             if (char === " ") {
+    //                 // nto sure why nbsp causes it to not collapse 
+    //                 return <span key={key} style={{ backgroundColor: charColour }}>&nbsp;</span>;
+    //             } else {
+    //                 return <span key={key} style={{ color: charColour }}>{char}</span>;
+    //             }   
+                
+    //         }) 
+    //     })
+    // }
+    
+    const renderText = () => {
+        return correctText.map((word, indexOuter) => {
             return word.map((char, indexInner) => {
-                let charColour;
-                if (indexOuter >= correctText.length || indexInner >= correctText[indexOuter].length) {
+                let charColour = "grey"; 
+                if (indexOuter <= inputText.length-1 && indexInner <= inputText[indexOuter].length-1 && correctText[indexOuter][indexInner] !== inputText[indexOuter][indexInner]) {
+                    console.log(indexOuter)
+                    console.log(indexInner)
                     charColour = "red";
-                } else if (correctText[indexOuter][indexInner] === char) {
+                } else if (indexOuter <= inputText.length && indexInner <= inputText[indexOuter].length && correctText[indexOuter][indexInner] === inputText[indexOuter][indexInner]) {
                     charColour = "green";
-                } else {
-                    charColour = "red";
                 }
+               
                 // Generate a unique key for each span element, not sure too
                 const key = `${indexOuter}-${indexInner}`;
                 if (char === " ") {
                     // nto sure why nbsp causes it to not collapse 
-                    return <span key={key} style={{ backgroundColor: charColour }}>&nbsp;</span>;
+                    return <span key={key} style={{ backgroundColor: 'transparent'}}>&nbsp;</span>;
                 } else {
                     return <span key={key} style={{ color: charColour }}>{char}</span>;
                 }   
-                
-            }) 
+            })
         })
     }
-  
     
 
     const handleKeyDown = event => {
@@ -135,12 +158,14 @@ const InputField = () => {
 
     return (
         <>
-            <div 
+            <div
+            className='textBox'
             ref={ref}  
             onKeyDown={handleKeyDown}
             tabIndex={-1}>
-                {renderTextWithStyle()}
-                {renderRemainingText()}
+                {/* {renderTextWithStyle()}
+                {renderRemainingText()} */}
+                {renderText()}
                 {/* {inputText.map((e) => {
                     return e.join("")
                 }

@@ -42,7 +42,7 @@ const InputField = () => {
         <>
             <div 
             ref={ref} 
-            className="displayText" 
+            className="textBox" 
             onKeyDown={handleKeyDown}
             tabIndex={-1}>{texts[0]}</div>
             <div>
