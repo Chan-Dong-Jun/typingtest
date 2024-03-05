@@ -17,68 +17,111 @@ const InputField = () => {
     const ref = useRef(null)
     
  
-    // const renderRemainingText = () => {
-    //     return correctText.map((word, indexOuter) => {
-    //         if (indexOuter >= index) {
-    //             return word.map((char, indexInner) => {
-    //                 if (indexOuter === index && indexInner >= inputText[index].length || indexOuter > index) {
-    //                     return <span style={{ color: 'black' }}>{char}</span>;
-    //                 }
-    //             })
-    //         }
-    //     })
-    // }
-
-    
-
-    // const renderTextWithStyle = () => {
-    //     return inputText.map((word, indexOuter) => {
-    //         return word.map((char, indexInner) => {
-    //             let charColour;
-    //             if (indexOuter >= correctText.length || indexInner >= correctText[indexOuter].length) {
-    //                 charColour = "red";
-    //             } else if (correctText[indexOuter][indexInner] === char) {
-    //                 charColour = "green";
-    //             } else {
-    //                 charColour = "red";
-    //             }
-    //             // Generate a unique key for each span element, not sure too
-    //             const key = `${indexOuter}-${indexInner}`;
-    //             if (char === " ") {
-    //                 // nto sure why nbsp causes it to not collapse 
-    //                 return <span key={key} style={{ backgroundColor: charColour }}>&nbsp;</span>;
-    //             } else {
-    //                 return <span key={key} style={{ color: charColour }}>{char}</span>;
-    //             }   
-                
-    //         }) 
-    //     })
-    // }
-    
-    const renderText = () => {
+    const renderRemainingText = () => {
         return correctText.map((word, indexOuter) => {
+            if (indexOuter >= index) {
+                return word.map((char, indexInner) => {
+                    if (indexOuter === index && indexInner >= inputText[index].length || indexOuter > index) {
+                        return <span style={{ color: 'black' }}>{char}</span>;
+                    }
+                })
+            }
+        })
+    }
+
+    
+
+    const renderTextWithStyle = () => {
+        return inputText.map((word, indexOuter) => {
             return word.map((char, indexInner) => {
-                let charColour = "grey"; 
-                if (indexOuter <= inputText.length-1 && indexInner <= inputText[indexOuter].length-1 && correctText[indexOuter][indexInner] !== inputText[indexOuter][indexInner]) {
-                    console.log(indexOuter)
-                    console.log(indexInner)
+                let charColour;
+                if (indexOuter >= correctText.length || indexInner >= correctText[indexOuter].length) {
                     charColour = "red";
-                } else if (indexOuter <= inputText.length && indexInner <= inputText[indexOuter].length && correctText[indexOuter][indexInner] === inputText[indexOuter][indexInner]) {
+                } else if (correctText[indexOuter][indexInner] === char) {
                     charColour = "green";
+                } else {
+                    charColour = "red";
                 }
-               
                 // Generate a unique key for each span element, not sure too
                 const key = `${indexOuter}-${indexInner}`;
                 if (char === " ") {
                     // nto sure why nbsp causes it to not collapse 
-                    return <span key={key} style={{ backgroundColor: 'transparent'}}>&nbsp;</span>;
-                } else {
-                    return <span key={key} style={{ color: charColour }}>{char}</span>;
-                }   
-            })
+                    return <span key={key} style={{ backgroundColor: charColour }}>&nbsp;</span>;
+                } else  {
+                    return <span key={key} style={{ color: charColour }}>{correctText[indexOuter][indexInner]}</span>;
+                } 
+                
+            }) 
         })
     }
     
+    // const renderText = () => {
+    //     return correctText.map((word, indexOuter) => {
+    //         return word.map((char, indexInner) => {
+    //             let charColour = "grey"; 
+    //             if (indexOuter <= inputText.length-1 && indexInner <= inputText[indexOuter].length-1 && correctText[indexOuter][indexInner] !== inputText[indexOuter][indexInner]) {
+    //                 console.log(indexOuter)
+    //                 console.log(indexInner)
+    //                 charColour = "red";
+    //             } else if (indexOuter <= inputText.length && indexInner <= inputText[indexOuter].length && correctText[indexOuter][indexInner] === inputText[indexOuter][indexInner]) {
+    //                 charColour = "green";
+    //             }
+               
+    //             // Generate a unique key for each span element, not sure too
+    //             const key = `${indexOuter}-${indexInner}`;
+    //             if (char === " ") {
+    //                 // nto sure why nbsp causes it to not collapse 
+    //                 return <span key={key} style={{ backgroundColor: 'transparent'}}>&nbsp;</span>;
+    //             } else {
+    //                 return <span key={key} style={{ color: charColour }}>{char}</span>;
+    //             }   
+    //         })
+    //     })
+    // }
+    
+    // const renderText = () => {
+    //     for (let outerIndex = 0; outerIndex < correctText.length; outerIndex++) {
+    //         for (let innerIndex = 0; innerIndex < correctText[outerIndex].length; innerIndex++ ) {
+    //             let charColour = "grey";
+    //             if (outerIndex <= correctText.length-1 && innerIndex <= correctText[outerIndex].length-1 && correctText[outerIndex][innerIndex] !== inputText[outerIndex][innerIndex]) {
+    //                 charColour = "red";
+    //             } else if ((outerIndex <= correctText.length-1 && innerIndex <= correctText[outerIndex].length-1 && correctText[outerIndex][innerIndex] === inputText[outerIndex][innerIndex])) {
+    //                 charColour = "green"
+    //             }
+    //             const key = `${outerIndex}-${innerIndex}`;
+    //             if (correctText[outerIndex][innerIndex] === " ") {
+    //                 // nto sure why nbsp causes it to not collapse 
+    //                 return <span key={key} style={{ backgroundColor: 'transparent'}}>&nbsp;</span>;
+    //             } else {
+    //                 return <span key={key} style={{ color: charColour }}>{correctText[outerIndex][innerIndex]}</span>;
+    //             }   
+    //         }
+    //     }
+    // }
+
+    // const renderText = () => {
+    //     return correctText.map((word, indexOuter) => {
+    //         return word.map((char, indexInner) => {
+    //             let charColour = "grey"; 
+    //             if (indexOuter <= inputText.length-1 && indexInner <= inputText[indexOuter].length-1 && correctText[indexOuter][indexInner] !== inputText[indexOuter][indexInner]) {
+    //                 console.log(indexOuter)
+    //                 console.log(indexInner)
+    //                 charColour = "red";
+    //             } else if (indexOuter <= inputText.length && indexInner <= inputText[indexOuter].length && correctText[indexOuter][indexInner] === inputText[indexOuter][indexInner]) {
+    //                 charColour = "green";
+    //             }
+               
+    //             // Generate a unique key for each span element, not sure too
+    //             const key = `${indexOuter}-${indexInner}`;
+    //             if (char === " ") {
+    //                 // nto sure why nbsp causes it to not collapse 
+    //                 return <span key={key} style={{ backgroundColor: 'transparent'}}>&nbsp;</span>;
+    //             }  else {
+    //                 return <span key={key} style={{ color: charColour }}>{char}</span>;
+    //             }   
+    //         })
+    //     })
+    // }
 
     const handleKeyDown = event => {
         console.log('User pressed: ', event.key);
@@ -163,9 +206,9 @@ const InputField = () => {
             ref={ref}  
             onKeyDown={handleKeyDown}
             tabIndex={-1}>
-                {/* {renderTextWithStyle()}
-                {renderRemainingText()} */}
-                {renderText()}
+                {renderTextWithStyle()}
+                {renderRemainingText()}
+                {/* {renderText()} */}
                 {/* {inputText.map((e) => {
                     return e.join("")
                 }
