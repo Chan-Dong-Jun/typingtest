@@ -1,5 +1,6 @@
 span {
     font: "Roboto Mono", "Roboto Mono", "Vazirmatn", monospace;
+    font-variant-numeric: tabular-nums;
     font-size: 1.125rem;
     font-weight: 400;
     color: grey;
@@ -7,4 +8,10 @@ span {
 
 .wrongWords {
     
+}
+
+.textCursor {
+    border-right: 0.1rem solid grey;
+    padding: 0px;
+    margin: 0px;
 }

@@ -44,13 +44,16 @@ const InputField = () => {
                 }
                 // Generate a unique key for each span element, not sure too
                 const key = `${indexOuter}-${indexInner}`;
-                if (char === " ") {
+                if (char === " " && charColour==="red") {
                     // nto sure why nbsp causes it to not collapse 
                     return <span key={key} style={{ backgroundColor: charColour }}>&nbsp;</span>;
-                } else  {
+                } else if (char === " " && charColour==="green") {
+                    return <span key={key} style={{ backgroundColor: 'transparent' }}>&nbsp;</span>;
+                } else if (indexInner <= correctText[indexOuter].length -2 )  {
                     return <span key={key} style={{ color: charColour }}>{correctText[indexOuter][indexInner]}</span>;
-                } 
-                
+                } else {
+                    return <span key={key} style={{ color: charColour }}>{inputText[indexOuter][indexInner]}</span>;
+                }
             }) 
         })
     }
@@ -206,7 +209,9 @@ const InputField = () => {
             ref={ref}  
             onKeyDown={handleKeyDown}
             tabIndex={-1}>
+                <span className='textCursor'>
                 {renderTextWithStyle()}
+                </span>
                 {renderRemainingText()}
                 {/* {renderText()} */}
                 {/* {inputText.map((e) => {

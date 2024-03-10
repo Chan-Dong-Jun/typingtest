@@ -1,0 +1,36 @@
+import React, { useState } from 'react';
+
+const TypingSpeedTest = () => {
+  const [inputText, setInputText] = useState('');
+  const originalText = 'Your original text goes here...'; // Replace with your original text
+
+  const handleChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const renderTextWithStyling = () => {
+    return originalText.split('').map((char, index) => {
+      let charColor;
+      if (inputText[index] === char) {
+        charColor = 'green'; // Correct character
+      } else if (inputText[index] === undefined) {
+        charColor = 'black'; // Character not yet typed
+      } else {
+        charColor = 'red'; // Incorrect character
+      }
+      return <span key={index} style={{ color: charColor }}>{char}</span>;
+    });
+  };
+
+  return (
+    <div>
+      <div>
+        {/* Display the text with different styling */}
+        {renderTextWithStyling()}
+      </div>
+      <input type="text" value={inputText} onChange={handleChange} />
+    </div>
+  );
+};
+
+export default TypingSpeedTest;
