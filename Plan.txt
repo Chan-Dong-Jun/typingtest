@@ -1,0 +1,17 @@
+
+
+Frontend:
+React + typescript
+
+
+Backend:
+Django
+LLM finetuned
+
+
+
+11 March
+Learn Django https://docs.djangoproject.com/en/5.0/intro/tutorial02/
+
+12 March
+Learn Django views https://docs.djangoproject.com/en/5.0/intro/tutorial03/
